@@ -1,0 +1,81 @@
+public class Almacen {
+    private int[][] ventasMensuales;
+
+    public Almacen() {
+        ventasMensuales = new int[][] {
+            {510, 620, 730, 840, 950, 1060, 1170, 1280, 1390, 1500, 1610, 1720}, // Ropa
+            {470, 580, 690, 800, 910, 1020, 1130, 1240, 1350, 1460, 1570, 1680}, // Deportes
+            {420, 530, 640, 750, 860, 970, 1080, 1190, 1300, 1410, 1520, 1630}  // Juguetería
+        };
+    }
+
+    public void agregarVenta(int depto, int mes, int venta) {
+        if (depto >= 0 && depto < ventasMensuales.length && mes >= 1 && mes <= 12) {
+            ventasMensuales[depto][mes - 1] = venta;
+        } else {
+            System.out.println("Departamento o mes inválido");
+        }
+    }
+
+    public int obtenerVenta(int depto, int mes) {
+        if (depto >= 0 && depto < ventasMensuales.length && mes >= 1 && mes <= 12) {
+            return ventasMensuales[depto][mes - 1];
+        } else {
+            System.out.println("Departamento o mes inválido");
+            return -1;
+        }
+    }
+
+    public void borrarVenta(int depto, int mes) {
+        if (depto >= 0 && depto < ventasMensuales.length && mes >= 1 && mes <= 12) {
+            ventasMensuales[depto][mes - 1] = 0;
+        } else {
+            System.out.println("Departamento o mes inválido");
+        }
+    }
+
+    public void mostrarVentas() {
+        String[] departamentos = {"Ropa", "Deportes", "Juguetería"};
+        for (int i = 0; i < ventasMensuales.length; i++) {
+            System.out.print("Ventas de " + departamentos[i] + ": ");
+            for (int j = 0; j < ventasMensuales[i].length; j++) {
+                System.out.print(ventasMensuales[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        String[] departamentos = {"Ropa", "Deportes", "Juguetería"};
+        for (int i = 0; i < ventasMensuales.length; i++) {
+            sb.append("Ventas de ").append(departamentos[i]).append(": ");
+            for (int j = 0; j < ventasMensuales[i].length; j++) {
+                sb.append(ventasMensuales[i][j]).append(" ");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        Almacen almacen = new Almacen();
+
+        System.out.println("Ventas iniciales:");
+        almacen.mostrarVentas();
+
+        System.out.println("\nAgregar venta de 1550 en Ropa en enero:");
+        almacen.agregarVenta(0, 1, 1550);
+        almacen.mostrarVentas();
+
+        System.out.println("\nObtener venta de Deportes en febrero:");
+        System.out.println(almacen.obtenerVenta(1, 2));
+
+        System.out.println("\nBorrar venta de Juguetería en marzo:");
+        almacen.borrarVenta(2, 3);
+        almacen.mostrarVentas();
+
+        System.out.println("\nUsando el método toString:");
+        System.out.println(almacen);
+    }
+}
